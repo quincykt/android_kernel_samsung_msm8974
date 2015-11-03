@@ -137,12 +137,6 @@ static unsigned int up_threshold_any_cpu_freq = 960000;
 
 static int two_phase_freq_array[NR_CPUS] = {[0 ... NR_CPUS-1] = 1728000} ;
 
-/*
- * Duration in usec to be used with touchboost(interactive_input_event).
- * Default is 500000 usec(500 msec).
- */
-#define TOUCHBOOST_DURATION 500000
-
 static int cpufreq_governor_intelliactive(struct cpufreq_policy *policy,
 		unsigned int event);
 
@@ -1277,7 +1271,8 @@ static void interactive_input_event(struct input_handle *handle,
 		unsigned int code, int value)
 {
 	if (type == EV_SYN && code == SYN_REPORT) {
-		boostpulse_endtime = ktime_to_us(ktime_get()) + TOUCHBOOST_DURATION;
+		boostpulse_endtime = ktime_to_us(ktime_get()) +
+			boostpulse_duration_val;
 		cpufreq_interactive_boost();
 	}
 }
