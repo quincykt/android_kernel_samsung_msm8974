@@ -195,12 +195,9 @@ on post-fs-data
     mkdir /efs/wifi 0775 radio system
     chown system wifi /efs/wifi/.mac.info
     chmod 0660 /efs/wifi/.mac.info
-    restorecon /efs/wifi/.mac.info
-
 
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
-    restorecon_recursive /data/misc/audio
 
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
     # We chown/chmod /persist again so because mount is run as root + defaults
@@ -228,7 +225,6 @@ on post-fs-data
 
     chown system system /sys/class/sec/sec_touchkey/keypad_enable
     chmod 0660 /sys/class/sec/sec_touchkey/keypad_enable
-    restorecon /sys/class/sec/sec_touchkey/keypad_enable
 
 # LiveDisplay Feature
     chown system system /sys/devices/virtual/graphics/fb0/rgb
@@ -254,7 +250,6 @@ on post-fs-data
     chown bluetooth net_bt_stack ro.bt.bdaddr_path
     chown radio net_bt_stack /efs/bluetooth/bt_addr
     chmod 0640 /efs/bluetooth/bt_addr
-    restorecon_recursive /efs/bluetooth
     chown bluetooth net_bt_stack /dev/ttyHS0
     chmod 0660 /dev/ttyHS0
     chmod 0660 /sys/class/rfkill/rfkill0/state
@@ -344,19 +339,15 @@ on post-fs-data
 
     #Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
-    restorecon_recursive /data/media
-
 
 # GPIO DVS
     chown radio system /sys/class/secgpio_check/secgpio_check_all/secgpio_ctrl
 # sensor
     chown system system /efs/FactoryApp/baro_delta
     chmod 0640 /efs/FactoryApp/baro_delta
-    restorecon /efs/FactoryApp/baro_delta
 
     chown system system /efs/gyro_cal_data
     chmod 0640 /efs/gyro_cal_data
-    restorecon /efs/gyro_cal_data
 
     write /proc/sys/vm/swappiness 130
 
