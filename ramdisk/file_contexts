@@ -254,7 +254,7 @@
 /mnt/asec/[^/]+/lib(/.*)?   u:object_r:asec_public_file:s0
 /data/app-asec(/.*)?        u:object_r:asec_image_file:s0
 #line 1 "device/qcom/sepolicy/common/file_contexts"
-###################################
+##################################
 # Dev nodes
 #
 /dev/adsprpc-smd                                u:object_r:qdsp_device:s0
@@ -272,6 +272,7 @@
 /dev/rtc0                                       u:object_r:rtc_device:s0
 /dev/sensors                                    u:object_r:sensors_device:s0
 /dev/smd.*                                      u:object_r:smd_device:s0
+/dev/smd11                                      u:object_r:smd11_device:s0
 /dev/smem_log                                   u:object_r:smem_log_device:s0
 /dev/ttyHSL0                                    u:object_r:console_device:s0
 /dev/ttyHS[0-9]*                                u:object_r:serial_device:s0
@@ -310,6 +311,7 @@
 /dev/wcnss_ctrl                                 u:object_r:wcnss_device:s0
 /dev/wcnss_wlan                                 u:object_r:wcnss_device:s0
 /dev/pta                                        u:object_r:pta_device:s0
+/dev/mdss_rotator                               u:object_r:graphics_device:s0
 /dev/hbtp_input                                 u:object_r:hbtp_device:s0
 /dev/jdi-bu21150                                u:object_r:bu21150_device:s0
 /dev/voice_svc                                  u:object_r:voice_device:s0
@@ -346,6 +348,7 @@
 /dev/socket/rild2-debug                         u:object_r:rild_debug_socket:s0
 /dev/socket/rild3                               u:object_r:rild_socket:s0
 /dev/socket/rild3-debug                         u:object_r:rild_debug_socket:s0
+/dev/socket/msm_irqbalance                      u:object_r:msm_irqbalance_socket:s0
 
 ###################################
 # System files
@@ -424,6 +427,7 @@
 /system/vendor/bin/qti                          u:object_r:qti_exec:s0
 /system/bin/wcnss_service                       u:object_r:wcnss_service_exec:s0
 /system/vendor/bin/hbtp_daemon                  u:object_r:hbtp_exec:s0
+/system/bin/wcnss_filter                        u:object_r:wcnss_filter_exec:s0
 
 ###################################
 # sysfs files
@@ -439,6 +443,7 @@
 /sys/devices/qpnp-charger.*/power_supply/battery(/.*)?              u:object_r:sysfs_battery_supply:s0
 /sys/devices/system/cpu/cpu0/rq-stats/*                             u:object_r:sysfs_rqstats:s0
 /sys/devices/virtual/graphics/fb([0-2])+/idle_time                  u:object_r:sysfs_graphics:s0
+/sys/devices/virtual/graphics/fb([0-2])+/dynamic_fps                u:object_r:sysfs_graphics:s0
 /sys/devices/virtual/graphics/fb([0-2])+/product_description        u:object_r:sysfs_graphics:s0
 /sys/devices/virtual/graphics/fb([0-2])+/vendor_name                u:object_r:sysfs_graphics:s0
 /sys/devices/virtual/hsicctl/hsicctl1[0-9]/modem_wait               u:object_r:sysfs_hsic_modem_wait:s0
@@ -489,6 +494,7 @@
 /data/misc/location(/.*)?                                           u:object_r:location_data_file:s0
 /data/FTM_AP(/.*)?                                                  u:object_r:mmi_data_file:s0
 /data/misc/hbtp(/.*)?                                               u:object_r:hbtp_log_file:s0
+/data/local/.Drm(/.*)?                                              u:object_r:oma_drm_data_file:s0
 /data/misc/qlogd(/.*)?                                              u:object_r:qlogd_data_file:s0
 /data/misc/dts(/.*)?                                                u:object_r:dts_data_file:s0
 
@@ -500,6 +506,7 @@
 /persist/data(/.*)?                                                 u:object_r:persist_drm_file:s0
 /persist/data/tz(/.*)?                                              u:object_r:persist_drm_file:s0
 /persist/data/sfs(/.*)?                                             u:object_r:persist_drm_file:s0
+/persist/display(/.*)?                                              u:object_r:persist_display_file:s0
 
 ###################################
 # oem files
@@ -588,7 +595,6 @@
 /sys/class/sec/sec_touchkey/keypad_enable               u:object_r:sysfs_display:s0
 
 # Display
-/sys/devices/virtual/graphics/fb0/rgb                   u:object_r:sysfs_display:s0
 /sys/devices/virtual/lcd/panel/power_reduce             u:object_r:sysfs_display:s0
 
 # NFC
@@ -625,6 +631,9 @@
 /system/bin/auditd        u:object_r:logd_exec:s0
 /data/misc/audit(/.*)?    u:object_r:auditd_log:s0
 
+# Bootchart
+/data/bootchart(/.*)?    u:object_r:bootchart_log:s0
+
 # Themes
 /data/system/theme(/.*)?  u:object_r:theme_data_file:s0
 
@@ -653,3 +662,12 @@
 
 # Lockscreen wallpaper
 /data/system/users/[0-9]+/keyguard_wallpaper   u:object_r:wallpaper_file:s0
+
+# Persistent properties
+/persist/properties(/.*)?         u:object_r:persist_property_file:s0
+
+# LiveDisplay
+/sys/devices/virtual/graphics/fb0/aco           u:object_r:livedisplay_sysfs:s0
+/sys/devices/virtual/graphics/fb0/cabc          u:object_r:livedisplay_sysfs:s0
+/sys/devices/virtual/graphics/fb0/rgb           u:object_r:livedisplay_sysfs:s0
+/sys/devices/virtual/graphics/fb0/sre           u:object_r:livedisplay_sysfs:s0
