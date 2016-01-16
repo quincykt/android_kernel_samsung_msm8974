@@ -15,7 +15,7 @@ debug.atrace.tags.enableflags=0
 #
 # BOOTIMAGE_BUILD_PROPERTIES
 #
-ro.bootimage.build.date=Sat Dec 5 22:54:11 KST 2015
-ro.bootimage.build.date.utc=1449323651
-ro.bootimage.build.fingerprint=samsung/cm_hlte/hlte:6.0/MDB08M/729d43f7d1:userdebug/test-keys
+ro.bootimage.build.date=Sat Jan 16 22:09:19 KST 2016
+ro.bootimage.build.date.utc=1452949759
+ro.bootimage.build.fingerprint=samsung/cm_hlte/hlte:6.0.1/MMB29T/7c2e95216c:userdebug/test-keys
 persist.sys.usb.config=mtp,adb

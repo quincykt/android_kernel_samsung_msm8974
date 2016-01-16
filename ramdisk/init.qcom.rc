@@ -31,7 +31,7 @@ import init.target.rc
 on early-init
     setprop sys.boot_completed 0
 
-    export LD_SHIM_LIBS /system/lib/libril.so|libril_shim.so:rmt_storage|librmt_shim.so
+    export LD_SHIM_LIBS /system/lib/libril.so|libril_shim.so
 
 on init
     # Set permissions for persist partition
@@ -58,7 +58,6 @@ on early-boot
 
 on boot
 
-
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
@@ -73,7 +72,7 @@ on boot
     chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chmod 0660 /proc/bluetooth/sleep/proto
-    chown bluetooth net_bt_stack /dev/ttyHS0
+    chown bluetooth bluetooth /dev/ttyHS0
     chmod 0660 /sys/module/hci_uart/parameters/ath_lpm
     chmod 0660 /sys/module/hci_uart/parameters/ath_btwrite
     chmod 0660 /dev/ttyHS0
