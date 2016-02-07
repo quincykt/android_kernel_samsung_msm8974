@@ -2196,7 +2196,7 @@ int security_netif_sid(char *name, u32 *if_sid)
 {
 	int rc = 0;
 	struct ocontext *c;
-	u32 tmpsid;
+	//u32 tmpsid;
 
 	read_lock(&policy_rwlock);
 

@@ -229,56 +229,6 @@ done:
 }
 
 /**
- * adreno_drawctxt_dump() - dump information about a draw context
- * @device: KGSL device that owns the context
- * @context: KGSL context to dump information about
- *
- * Dump specific information about the context to the kernel log.  Used for
- * fence timeout callbacks
- */
-void adreno_drawctxt_dump(struct kgsl_device *device,
-		struct kgsl_context *context)
-{
-	unsigned int queue, start, retire;
-	struct adreno_context *drawctxt = ADRENO_CONTEXT(context);
-
-	queue = kgsl_readtimestamp(device, context, KGSL_TIMESTAMP_QUEUED);
-	start = kgsl_readtimestamp(device, context, KGSL_TIMESTAMP_CONSUMED);
-	retire = kgsl_readtimestamp(device, context, KGSL_TIMESTAMP_RETIRED);
-
-	spin_lock(&drawctxt->lock);
-	dev_err(device->dev,
-		"  context[%d]: queue=%d, submit=%d, start=%d, retire=%d\n",
-		context->id, queue, drawctxt->submitted_timestamp,
-		start, retire);
-
-	if (drawctxt->cmdqueue_head != drawctxt->cmdqueue_tail) {
-		struct kgsl_cmdbatch *cmdbatch =
-			drawctxt->cmdqueue[drawctxt->cmdqueue_head];
-
-		if (test_bit(CMDBATCH_FLAG_FENCE_LOG, &cmdbatch->priv)) {
-			dev_err(device->dev,
-				"  possible deadlock. Context %d might be blocked for itself\n",
-				context->id);
-			goto done;
-		}
-
-		spin_lock(&cmdbatch->lock);
-
-		if (!list_empty(&cmdbatch->synclist)) {
-			dev_err(device->dev,
-				"  context[%d] (ts=%d) Active sync points:\n",
-				context->id, cmdbatch->timestamp);
-
-			kgsl_dump_syncpoints(device, cmdbatch);
-		}
-		spin_unlock(&cmdbatch->lock);
-	}
-done:
-	spin_unlock(&drawctxt->lock);
-}
-
-/**
  * adreno_drawctxt_wait() - sleep until a timestamp expires
  * @adreno_dev: pointer to the adreno_device struct
  * @drawctxt: Pointer to the draw context to sleep for
