@@ -1,3 +1,0 @@
-make_old.log
-security/selinux/ss/services.c
-security/selinux/ss/services.c.orig
