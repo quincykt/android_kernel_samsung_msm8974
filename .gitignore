@@ -83,3 +83,8 @@ GTAGS
 *.orig
 *~
 \#*#
+
+# build script
+*.log
+out
+AnyKernel2
