@@ -913,13 +913,13 @@ static struct msm_gpiomux_config msm_blsp_configs[] __initdata = {
 	{
 		.gpio      = 55, /* BLSP10 QUP I2C_DAT */
 		.settings = {
-			[GPIOMUX_SUSPENDED] = &nfc_gpio_i2c_config,
+			[GPIOMUX_SUSPENDED] = &gpio_i2c_config,
 		},
 	},
 	{
 		.gpio      = 56, /* BLSP10 QUP I2C_CLK */
 		.settings = {
-			[GPIOMUX_SUSPENDED] = &nfc_gpio_i2c_config,
+			[GPIOMUX_SUSPENDED] = &gpio_i2c_config,
 		},
 	},
 #else
